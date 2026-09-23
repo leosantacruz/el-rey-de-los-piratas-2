@@ -4,7 +4,7 @@ Tragamonedas pixel art (480×270 escalado) con post-procesado WebGL. Sin depende
 
 ## Jugar
 
-Abrir `index.html` en Chrome o Edge (doble clic alcanza) y poner pantalla completa con `F11`.
+Abrir `index.html` en Chrome o Edge (doble clic alcanza). Un clic en cualquier parte del juego lo pone en pantalla completa (también sirve `F11`).
 
 - Cualquier tecla o clic: comenzar / girar / volver al menú
 - `M`: silenciar

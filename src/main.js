@@ -162,7 +162,16 @@ window.addEventListener('keydown', (e) => {
   if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter'].includes(e.code)) e.preventDefault();
   onAny();
 });
-window.addEventListener('pointerdown', onAny);
+function enterFullscreen() {
+  const el = document.documentElement;
+  if (document.fullscreenElement || !document.fullscreenEnabled || !el.requestFullscreen) return;
+  el.requestFullscreen({ navigationUI: 'hide' }).catch(() => {});
+}
+
+window.addEventListener('pointerdown', () => {
+  enterFullscreen();
+  onAny();
+});
 window.addEventListener('resize', resize);
 
 const SCENES = {
