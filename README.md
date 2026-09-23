@@ -4,9 +4,9 @@ Tragamonedas pixel art (480×270 escalado) con post-procesado WebGL. Sin depende
 
 ## Jugar
 
-Abrir `index.html` en Chrome o Edge (doble clic alcanza). Un clic en cualquier parte del juego lo pone en pantalla completa (también sirve `F11`).
+Abrir `index.html` en Chrome o Edge (doble clic alcanza). Un clic en cualquier parte del juego lo pone en pantalla completa y activa el sonido, sin avanzar el juego (también sirve `F11`).
 
-- Cualquier tecla o clic: comenzar / girar / volver al menú
+- Cualquier tecla o el control remoto: comenzar / girar / volver al menú
 - `M`: silenciar
 - Si nadie toca nada, la máquina gira sola a los 15 s
 
@@ -17,7 +17,7 @@ Publicado en Vercel: el juego en https://el-rey-de-los-piratas.vercel.app y el c
 - Abrir el juego en la TV y el control en cualquier celular: tocar la pantalla equivale a pulsar una tecla en el juego.
 - El control muestra "BARCO A LA VISTA" cuando hay un juego conectado escuchando.
 - Para usar varias máquinas a la vez, agregar `?sala=nombre` al juego y al control (la misma sala en los dos).
-- El navegador bloquea el audio hasta el primer gesto: hacer un clic o tocar una tecla una vez en la TV al abrir el juego (o lanzar Chrome con `--autoplay-policy=no-user-gesture-required`).
+- El navegador bloquea el audio hasta el primer gesto: hacer un clic una vez en la TV al abrir el juego (no avanza la experiencia) (o lanzar Chrome con `--autoplay-policy=no-user-gesture-required`).
 - Funciona con Pusher: el celular hace `POST /api/press` (función de Vercel que firma con el secret) y el juego recibe el evento por WebSocket. Variables en Vercel: `PUSHER_APP_ID`, `PUSHER_KEY`, `PUSHER_SECRET`, `PUSHER_CLUSTER`.
 
 ## Parámetros de URL

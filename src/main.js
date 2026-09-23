@@ -169,8 +169,8 @@ function enterFullscreen() {
 }
 
 window.addEventListener('pointerdown', () => {
+  Sound.unlock();
   enterFullscreen();
-  onAny();
 });
 window.addEventListener('resize', resize);
 
