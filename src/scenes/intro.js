@@ -79,7 +79,7 @@ class IntroScene {
     const t = this.t;
     this.tl.update(t);
     if (this.shot === 1) {
-      cam.zoom = 1 + Ease.inOutCubic(seg(t, 0, 4.4)) * 0.14;
+      cam.zoom = 1;
       cam.x = 0;
       for (const c of this.clouds) c.x += c.v * dt;
       const sx = this.shipX();
