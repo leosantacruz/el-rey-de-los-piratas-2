@@ -3,18 +3,13 @@
 const LANDSCAPE = W > H;
 const BX = W / 2;
 const BR = LANDSCAPE ? Math.round(H * 0.29) : Math.min(Math.round(W * 0.42), Math.round(H * 0.23));
-const BY = LANDSCAPE ? Math.round(H * 0.5) : Math.round(H * 0.53);
+const BY = LANDSCAPE ? Math.round(H * 0.5) : Math.round(H * 0.47);
 const CAP_R = BR - 15;
 const TRAVEL = 8;
 const SEA_Y = H - (LANDSCAPE ? 30 : 64);
 const WHEEL_R = BR + 27;
 const BULBS = 20;
-const LABEL = '¡FUEGO!';
 
-const ST_TITLE = { ...ST.titleBig, id: 'ctlTitle', s: 4, depth: 4, depthColors: ['#a82414', '#64120c', '#2c0808'] };
-const ST_TITLE_SMALL = { ...ST.titleSmall, id: 'ctlTitleSmall', s: 2, depth: 2 };
-const ST_LABEL = { ...ST.slam, id: 'ctlLabel', s: 4, depth: 4 };
-const ST_LABEL_HOT = { ...ST.slam, id: 'ctlLabelHot', s: 4, depth: 4, fill: ['#ffffff', '#fffbe0', '#ffe45c', '#ffb81e', '#ff8414'] };
 const ST_STATUS = {
   ok: { id: 'ctlOk', s: 1, fill: ['#b8ff8a'], outline: '#05020a', depth: 0 },
   wait: { id: 'ctlWait', s: 1, fill: ['#c8c0e8'], outline: '#05020a', depth: 0 },
@@ -125,7 +120,6 @@ const capWhite = silhouette(cap, '#ffffff');
 const skirt = buildSkirt();
 const wheel = buildWheel();
 const capFx = makeCanvas(cap.width, cap.height);
-const titleC = makeCanvas(W, 80);
 const rays = new Rays(BX, BY);
 const twinkle = Array.from({ length: Math.round(W / 6) }, () => ({ x: randi(0, W - 1), y: randi(0, SEA_Y * 0.7), p: rand(0, TAU), s: rand(1.5, 4), b: Math.random() < 0.2 }));
 Ctl.clouds = [
@@ -294,7 +288,7 @@ function drawSky(ctx, t) {
     else ctx.fillRect(s.x, s.y, 1, 1);
   }
   const mx = LANDSCAPE ? W - 70 : W - 60;
-  const my = LANDSCAPE ? 14 : Math.max(76, Math.round(BY - WHEEL_R - 40));
+  const my = LANDSCAPE ? 14 : Math.max(14, Math.round(BY - WHEEL_R - 58));
   ditherDisc(ctx, mx + 26, my + 26, 36 + Math.sin(t * 1.3) * 2, '#7c83b8', 3);
   ctx.drawImage(SPR.moon, mx, my);
   for (const c of Ctl.clouds) ctx.drawImage(c.s, Math.round(c.x), Math.round(c.y));
@@ -376,43 +370,6 @@ function drawButton(ctx, t) {
   ctx.drawImage(capFx, ox, oy - d);
 }
 
-function drawTitle(ctx, t) {
-  const c = titleC.ctx;
-  c.clearRect(0, 0, titleC.width, titleC.height);
-  const small = 'EL REY DE LOS';
-  const big = 'PIRATAS';
-  drawText(c, small, W / 2, 10, ST_TITLE_SMALL, { align: 'center', fx: (i) => ({ y: Math.round(Math.sin(t * 2 - i * 0.4) * 1.2) }) });
-  drawText(c, big, W / 2, 32, ST_TITLE, { align: 'center', fx: (i) => ({ y: Math.round(Math.sin(t * 2.4 - i * 0.6) * 2) }) });
-  const sx = -60 + (t % 3.6) * 120;
-  c.globalCompositeOperation = 'source-atop';
-  for (let y = 0; y < titleC.height; y++) {
-    const x0 = Math.round(sx - y * 0.55);
-    c.fillStyle = '#ffffff';
-    c.fillRect(x0, y, 5, 1);
-    c.fillStyle = '#fff4b0';
-    c.fillRect(x0 - 3, y, 3, 1);
-    c.fillRect(x0 + 5, y, 3, 1);
-  }
-  c.globalCompositeOperation = 'source-over';
-  ctx.drawImage(titleC, 0, 4);
-}
-
-function drawLabel(ctx, t) {
-  const y = BY + BR + 30;
-  const pop = Ctl.pressAge;
-  const hot = pop < 0.25;
-  const w = drawText(ctx, LABEL, W / 2, y, hot ? ST_LABEL_HOT : ST_LABEL, {
-    align: 'center',
-    fx: (i) => {
-      const k = seg(pop, i * 0.03, i * 0.03 + 0.45);
-      return { y: Math.round(Math.sin(t * 4 - i * 0.5) * 2 - (1 - Ease.outBack(k)) * 8 * (k > 0 && k < 1 ? 1 : 0)), sc: k > 0 && k < 1 ? 1 + (1 - Ease.outElastic(k)) * 0.5 : 1 };
-    },
-  });
-  const ax = Math.round(Math.sin(t * 6) * 3);
-  drawText(ctx, '>', W / 2 - w / 2 - 12 - ax, y + 6, ST.promptGold);
-  drawText(ctx, '<', W / 2 + w / 2 + 3 + ax, y + 6, ST.promptGold);
-}
-
 function drawStatus(ctx, t) {
   let text;
   let st;
@@ -450,10 +407,6 @@ function draw(ctx) {
   drawParticles(ctx, 0);
   drawSea(ctx, t, moonX);
   drawButton(ctx, t);
-  if (!LANDSCAPE) {
-    drawTitle(ctx, t);
-    drawLabel(ctx, t);
-  }
   drawStatus(ctx, t);
   drawParticles(ctx, 1);
   drawRings(ctx, 1);
