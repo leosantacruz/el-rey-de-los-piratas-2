@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>El Rey de los Piratas</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #000;
+        overflow: hidden;
+        cursor: none;
+      }
+      #view {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: block;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="view"></canvas>
+    <script src="src/core.js"></script>
+    <script src="src/font.js"></script>
+    <script src="src/sprites.js"></script>
+    <script src="src/fx.js"></script>
+    <script src="src/audio.js"></script>
+    <script src="src/post.js"></script>
+    <script src="src/scenes/title.js"></script>
+    <script src="src/scenes/intro.js"></script>
+    <script src="src/scenes/slot.js"></script>
+    <script src="src/scenes/win.js"></script>
+    <script src="src/scenes/lose.js"></script>
+    <script src="src/main.js"></script>
+  </body>
+</html>
