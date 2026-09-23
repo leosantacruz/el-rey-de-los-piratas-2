@@ -1,7 +1,7 @@
 'use strict';
 
-const W = 480;
-const H = 270;
+const W = window.VIEW_W || 480;
+const H = window.VIEW_H || 270;
 const TAU = Math.PI * 2;
 
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);

@@ -33,7 +33,7 @@ uniform vec2 res, off;
 uniform float zoom, rot, time, aberr, sat, flash, vig, heat, bk1, bk2, grain, scan, bright;
 uniform vec3 flashC, tint;
 uniform vec4 w0, w1, w2;
-const float ASP = 480.0 / 270.0;
+const float ASP = ${(W / H).toFixed(6)};
 
 vec2 wave(vec2 uv, vec4 w){
   if (w.w <= 0.0) return uv;
@@ -124,8 +124,8 @@ const Post = {
     this.base = this.tex(W, H, gl.NEAREST);
     this.a1 = this.target(W / 2, H / 2);
     this.c1 = this.target(W / 2, H / 2);
-    this.a2 = this.target(120, 68);
-    this.c2 = this.target(120, 68);
+    this.a2 = this.target(Math.round(W / 4), Math.round(H / 4));
+    this.c2 = this.target(Math.round(W / 4), Math.round(H / 4));
     return true;
   },
   prog(fs) {
@@ -200,9 +200,9 @@ const Post = {
     this.pass(this.pBright, this.a1, { t: this.base }, { px: [1 / W, 1 / H], th: fx.threshold });
     this.pass(this.pBlur, this.c1, { t: this.a1.t }, { dir: [2 / W, 0] });
     this.pass(this.pBlur, this.a1, { t: this.c1.t }, { dir: [0, 2 / H] });
-    this.pass(this.pBlur, this.a2, { t: this.a1.t }, { dir: [0.5 / 120, 0.5 / 68] });
-    this.pass(this.pBlur, this.c2, { t: this.a2.t }, { dir: [1 / 120, 0] });
-    this.pass(this.pBlur, this.a2, { t: this.c2.t }, { dir: [0, 1 / 68] });
+    this.pass(this.pBlur, this.a2, { t: this.a1.t }, { dir: [0.5 / this.a2.w, 0.5 / this.a2.h] });
+    this.pass(this.pBlur, this.c2, { t: this.a2.t }, { dir: [1 / this.a2.w, 0] });
+    this.pass(this.pBlur, this.a2, { t: this.c2.t }, { dir: [0, 1 / this.a2.h] });
     const wv = [0, 1, 2].map((i) => {
       const w = fx.waves[i];
       if (!w) return [0, 0, 0, 0];

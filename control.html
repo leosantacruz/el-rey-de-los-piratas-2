@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#04020f" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Control pirata" />
+    <title>Control · El Rey de los Piratas</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #04020f;
+        overflow: hidden;
+        overscroll-behavior: none;
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      #view {
+        position: fixed;
+        display: block;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+      }
+    </style>
+    <script>
+      (() => {
+        const w = window.innerWidth || 390;
+        const h = window.innerHeight || 844;
+        const k = Math.min(w, h) / 200;
+        window.VIEW_W = Math.round(w / k / 2) * 2;
+        window.VIEW_H = Math.round(h / k / 2) * 2;
+      })();
+    </script>
+  </head>
+  <body>
+    <canvas id="view"></canvas>
+    <script src="src/core.js"></script>
+    <script src="src/font.js"></script>
+    <script src="src/sprites.js"></script>
+    <script src="src/fx.js"></script>
+    <script src="src/audio.js"></script>
+    <script src="src/post.js"></script>
+    <script src="src/net.js"></script>
+    <script src="src/control.js"></script>
+  </body>
+</html>
